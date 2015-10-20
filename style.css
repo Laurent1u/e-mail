@@ -16,6 +16,17 @@ td{
 }
 input[type="submit"] {
     margin-top: 10px;
-    margin-left: 50px;
-    width: 70px;
+    margin-left: 60px;
+    width: 100px;
+}
+div {
+    padding-bottom: 5px;
+}
+input#titlu{
+	margin-left: 8px;
+	width: 400px;
+}
+h2{
+	border-bottom: 1px solid;
+	padding-bottom: 10px;
 }
