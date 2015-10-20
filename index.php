@@ -12,19 +12,16 @@ if(isset($_POST['trimis'])){
 	if(empty($user)){
 		$errors[] = "Completati numele!";
 	}else{
-		// verific daca exista in DB numele
-		$query = "SELECT * FROM admin WHERE nume = '$user'";
+		// verific daca user si parola exista in BAZA 
+		$query = "SELECT * FROM admin WHERE nume = '$user' && parola = '$password'";
 		$result = mysqli_query($link, $query);
 	}
 	
 	// verific parola
 	if(empty($password)){
 		$errors[] = "Completati parola!";
-	}else{
-		//verific daca parola e corecta
-		$query = "SELECT * FROM admin WHERE parola = '$password'";
-		$result = mysqli_query($link, $query);
 	}
+	
 	// daca userul si parola sunt corecte ma redirectionez catre mail.php
 	if(mysqli_affected_rows($link)>0){
 		header("Location: mail.php");
