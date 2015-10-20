@@ -5,14 +5,14 @@ if(isset($_POST['trimis'])){
 	
 	require_once ('connect.php');
 	// variabile login
-	$user = mysqli_real_escape_string($_POST['user']);
+	$user = mysqli_real_escape_string($link, $_POST['user']);
 	$password = $_POST['password'];
 	
 	// verific username si parola
 	if(empty($user)){
 		$errors[] = "Completati numele!";
 	}else{
-		// verific daca exista in DB
+		// verific daca exista in DB numele
 		$query = "SELECT * FROM admin WHERE nume = '$user'";
 		$result = mysqli_query($link, $query);
 	}
@@ -20,6 +20,15 @@ if(isset($_POST['trimis'])){
 	// verific parola
 	if(empty($password)){
 		$errors[] = "Completati parola!";
+	}else{
+		//verific daca parola e corecta
+		$query = "SELECT * FROM admin WHERE parola = '$password'";
+		$result = mysqli_query($link, $query);
+	}
+	// daca userul si parola sunt corecte ma redirectionez catre mail.php
+	if(mysqli_affected_rows($link)>0){
+		header("Location: mail.php");
+		die();
 	}
 }
 ?>
@@ -39,7 +48,9 @@ if(isset($_POST['trimis'])){
  					<?php 
  					// afisez erorile daca exista
  					if (isset($errors)){
- 							echo "<p>$errors</p>";
+ 						foreach ($errors as $error){
+ 							echo "<p>$error</p>";
+ 						}
  					}
  					
  					?>
