@@ -14,7 +14,7 @@
 		<input type="text" name="titlu" id="titlu" />
 		</div>
 		<label for="mesaj">Mesaj:</label><br />
-		<textarea name="mesaj" id="mesaj" rows="25" cols="60" title="Scrieti mesajul aici..."></textarea>	
+		<textarea name="mesaj" id="mesaj" rows="25" cols="60"></textarea>	
 		<br />
 		<input type="submit" value="Trimite Email" />
 	</form>
