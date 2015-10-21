@@ -1,7 +1,8 @@
 <?php 
+session_start();
 // verific daca s-a trimis formularul
 if(isset($_POST['trimis'])){
-	print_r($_POST);
+	//print_r($_POST);
 	
 	require_once ('connect.php');
 	// variabile login
