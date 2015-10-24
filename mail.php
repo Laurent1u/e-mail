@@ -1,4 +1,6 @@
 <?php 
+
+if(isset($_POST['submit'])){
 	// from email
 	$from = "test@gmail.com";
 	
@@ -34,7 +36,8 @@
 	}else{
 		echo "<br />Nu s-au trimis mail-uri!";
 	}
-mysqli_close($link);
+//mysqli_close($link);
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
@@ -42,19 +45,20 @@ mysqli_close($link);
 <meta http-equiv="Content-Type" content="text/html; charset=Cp1252">
 <link href="style.css" rel="stylesheet" type="text/css" />
 <title>Trimite eMail</title>
+<script src="ckeditor/ckeditor.js"></script>
 </head>
     <body>
     <h2>Compune e-mail</h2>
 <p>Scrie e-mailul pe care vrei sa il trimiti:</p>
-	<form action="mail.php" method="POST">
+	<form action="" method="POST">
 	<div>
 		<label for="titlu">Subiect:</label>
 		<input type="text" name="subiect" id="subiect" />
 		</div>
 		<label for="mesaj">Mesaj:</label><br />
-		<textarea name="mesaj" id="mesaj" rows="25" cols="60"></textarea>	
+		<textarea name="mesaj" class="ckeditor" id="mesaj" rows="25" cols="60"></textarea>	
 		<br />
-		<input type="submit" value="Trimite Email" />
+		<input type="submit" name="submit" value="Trimite Email" />
 	</form>
 
     </body>
