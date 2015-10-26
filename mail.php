@@ -2,7 +2,7 @@
 
 if(isset($_POST['submit'])){
 	// from email
-	$from = "test@gmail.com";
+	$from = "pascu.laurentiu17@gmail.com";
 	
 	// variabilele din formular
 	require_once 'connect.php';
@@ -56,7 +56,7 @@ if(isset($_POST['submit'])){
 		<input type="text" name="subiect" id="subiect" />
 		</div>
 		<label for="mesaj">Mesaj:</label><br />
-		<textarea name="mesaj" class="ckeditor" id="mesaj" rows="25" cols="60"></textarea>	
+		<textarea name="mesaj" class="ckeditor" rows="40" cols="60"></textarea>	
 		<br />
 		<input type="submit" name="submit" value="Trimite Email" />
 	</form>
