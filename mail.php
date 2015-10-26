@@ -1,4 +1,5 @@
 <?php 
+
 if(isset($_POST['submit'])){
 	// from email
 	$from = "pascu.laurentiu17@gmail.com";
@@ -35,7 +36,6 @@ if(isset($_POST['submit'])){
 	}else{
 		echo "<br />Nu s-au trimis mail-uri!";
 	}
-//mysqli_close($link);
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
