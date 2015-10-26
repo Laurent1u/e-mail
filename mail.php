@@ -1,5 +1,4 @@
 <?php 
-
 if(isset($_POST['submit'])){
 	// from email
 	$from = "pascu.laurentiu17@gmail.com";
