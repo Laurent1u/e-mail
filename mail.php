@@ -1,8 +1,24 @@
 <?php 
 
 if(isset($_POST['submit'])){
-	// from email
+	
+		// from email
 	$from = "pascu.laurentiu17@gmail.com";
+	
+	function send_mail($to, $subiect, $mesaj, $from){
+	$eol = "\r\n";
+	
+	// Adauga corect adresa $from si headers
+  //$headers = "From: " . $from .$eol;
+  $headers .= "MIME-Version: 1.0" . $eol;
+  $headers .= "Content-type: text/html; charset=iso-8859-1" . $eol;
+	
+	// Executa expedierea datelor la serverul de mail
+  // Daca au fost trimise cu succes returneaza mesaj de confirmare, in caz contrar, de eroare
+  if (mail($to, stripslashes($subiect), stripslashes($mesaj), $headers))
+    return 'Mesajul a fost trimis cu succes catre: ' . $to . "<hr />";
+  else return 'Eroare: mesajul nu a putut fi expediat catre: ' . $to . "<hr />";
+}
 	
 	// variabilele din formular
 	require_once 'connect.php';
@@ -10,7 +26,7 @@ if(isset($_POST['submit'])){
 	$subiect = $_POST['subiect'];
 	$mesaj = $_POST['mesaj'];
 	
-	// afisez from + subiect
+	// afisari
 	
 	echo "From: " . $from . "<br />";
 	echo "Subiect: " . $subiect . "<hr />";
@@ -22,19 +38,9 @@ if(isset($_POST['submit'])){
 	while ($rand = mysqli_fetch_array($result)){
 		$to = $rand['email'];
 		
-		mail($to, $subiect, $mesaj, 'From: ' . $from);
-		
-		// Afisam cui am trimis mail
-		
-		echo "Mail trimis catre: " . $to . "<hr />";
-	}
-	
-	// Afisam succes sau erori
-	
-	if(count($result)>0){
-		echo "<br />Mail-uri trimise!";
-	}else{
-		echo "<br />Nu s-au trimis mail-uri!";
+		// Afisam succes sau erori
+	$go_mail = send_mail($to, $subiect, $mesaj, $from);
+	echo $go_mail;
 	}
 }
 ?>
@@ -45,11 +51,26 @@ if(isset($_POST['submit'])){
 <link href="style.css" rel="stylesheet" type="text/css" />
 <title>Trimite eMail</title>
 <script src="ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+
+function verifica (form) {
+	if (form.subiect.value == "") {
+		alert("Subiectul nu poate fi gol !");
+		return false;
+	}
+	/*else if (form.mesaj.value == "") {
+		alert("Mesajul nu poate fi gol !");
+		return false;
+	}*/
+	return true;
+}
+
+</script>
 </head>
     <body>
     <h2>Compune e-mail</h2>
 <p>Scrie e-mailul pe care vrei sa il trimiti:</p>
-	<form action="" method="POST">
+	<form action="mail.php" method="POST">
 	<div>
 		<label for="titlu">Subiect:</label>
 		<input type="text" name="subiect" id="subiect" />
@@ -57,7 +78,7 @@ if(isset($_POST['submit'])){
 		<label for="mesaj">Mesaj:</label><br />
 		<textarea name="mesaj" class="ckeditor" rows="40" cols="60"></textarea>	
 		<br />
-		<input type="submit" name="submit" value="Trimite Email" />
+		<input type="submit" name="submit" value="Trimite Email" onClick="return verifica(form)" />
 	</form>
 
     </body>
