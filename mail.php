@@ -13,6 +13,7 @@ if(isset($_POST['submit'])){
   $headers .= "MIME-Version: 1.0" . $eol;
   $headers .= "Content-type: text/html; charset=iso-8859-1" . $eol;
 	
+  
 	// Executa expedierea datelor la serverul de mail
   // Daca au fost trimise cu succes returneaza mesaj de confirmare, in caz contrar, de eroare
   if (mail($to, stripslashes($subiect), stripslashes($mesaj), $headers))
