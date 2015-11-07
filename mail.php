@@ -6,14 +6,13 @@ if(isset($_POST['submit'])){
 	$from = "pascu.laurentiu17@gmail.com";
 	
 	function send_mail($to, $subiect, $mesaj, $from){
-	$eol = "\r\n";
+	$ln = "\r\n";
 	
 	// Adauga corect adresa $from si headers
-  //$headers = "From: " . $from .$eol;
-  $headers .= "MIME-Version: 1.0" . $eol;
-  $headers .= "Content-type: text/html; charset=iso-8859-1" . $eol;
+  $headers = "From: " . $from . $ln;
+  $headers .= "MIME-Version: 1.0" . $ln;
+  $headers .= "Content-type: text/html; charset=iso-8859-1" . $ln;
 	
-  
 	// Executa expedierea datelor la serverul de mail
   // Daca au fost trimise cu succes returneaza mesaj de confirmare, in caz contrar, de eroare
   if (mail($to, stripslashes($subiect), stripslashes($mesaj), $headers))
@@ -25,7 +24,7 @@ if(isset($_POST['submit'])){
 	require_once 'connect.php';
 	
 	$subiect = $_POST['subiect'];
-	$mesaj = $_POST['mesaj'];
+	$mesaj = "Salut $nume" . $_POST['mesaj'];
 	
 	// afisari
 	
@@ -33,16 +32,23 @@ if(isset($_POST['submit'])){
 	echo "Subiect: " . $subiect . "<hr />";
 	
 	//conectare la DB + selectare email-uri
-	$query = "SELECT email FROM lista_email";
+	$query = "SELECT email, nume FROM lista_email";
 	$result = mysqli_query($link, $query) or die(mysqli_error($link));
 	
 	while ($rand = mysqli_fetch_array($result)){
 		$to = $rand['email'];
 		
+		// verific daca email are si un nume
+		
+		if ( $rand = mysqli_fetch_array($result)){
+			$nume = $rand['nume'];
+		}
+		
 		// Afisam succes sau erori
-	$go_mail = send_mail($to, $subiect, $mesaj, $from);
+	$go_mail = send_mail($to, $from, $subiect, $mesaj);
 	echo $go_mail;
 	}
+	
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
@@ -54,7 +60,7 @@ if(isset($_POST['submit'])){
 <script src="ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 
-function verifica (form) {
+function verifica(form) {
 	if (form.subiect.value == "") {
 		alert("Subiectul nu poate fi gol !");
 		return false;
