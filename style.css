@@ -26,6 +26,9 @@ input#titlu{
 	margin-left: 8px;
 	width: 400px;
 }
+input#subiect {
+    width: 500px;
+}
 h2{
 	border-bottom: 1px solid;
 	padding-bottom: 10px;
